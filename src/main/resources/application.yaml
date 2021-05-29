@@ -1,0 +1,5 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb+srv://cryptowallet-dev:crypto123456@cluster0.a3tet.mongodb.net/crytpwallet-dev?retryWrites=true&w=majority
+      database: cryptowallet-dev
