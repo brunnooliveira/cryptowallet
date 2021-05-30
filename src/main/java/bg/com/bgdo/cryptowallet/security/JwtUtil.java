@@ -1,6 +1,5 @@
 package bg.com.bgdo.cryptowallet.security;
 
-import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
@@ -17,11 +16,13 @@ import org.springframework.stereotype.Service;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.security.SignatureException;
 
 
 @Service
@@ -61,16 +62,15 @@ public class JwtUtil {
 			.setSubject(subject)
 			.setIssuedAt(new Date(System.currentTimeMillis()))
 			.setExpiration(new Date(System.currentTimeMillis() + jwtExpirationInMs))
-			.signWith(Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8)), SignatureAlgorithm.HS512)
+			.signWith(Keys.hmacShaKeyFor(secret.getBytes()), SignatureAlgorithm.HS256)
 			.compact();
-
 	}
 
 	public boolean validateToken(String authToken) {
 		try {
-			Jwts.parserBuilder().setSigningKey(secret).build().parseClaimsJws(authToken);
+			getJwtParser(secret).parseClaimsJws(authToken);
 			return true;
-		} catch (MalformedJwtException | UnsupportedJwtException | IllegalArgumentException ex) {
+		} catch (SignatureException | MalformedJwtException | UnsupportedJwtException | IllegalArgumentException ex) {
 			throw new BadCredentialsException("INVALID_CREDENTIALS", ex);
 		} catch (ExpiredJwtException ex) {
 			throw ex;
@@ -78,13 +78,13 @@ public class JwtUtil {
 	}
 
 	public String getUsernameFromToken(String token) {
-		Claims claims = Jwts.parserBuilder().setSigningKey(secret).build().parseClaimsJws(token).getBody();
+		Claims claims = getJwtParser(secret).parseClaimsJws(token).getBody();
 		return claims.getSubject();
 
 	}
 
 	public List<SimpleGrantedAuthority> getRolesFromToken(String token) {
-		Claims claims = Jwts.parserBuilder().setSigningKey(secret).build().parseClaimsJws(token).getBody();
+		Claims claims = getJwtParser(secret).parseClaimsJws(token).getBody();
 
 		List<SimpleGrantedAuthority> roles = null;
 
@@ -100,6 +100,10 @@ public class JwtUtil {
 		}
 		return roles;
 
+	}
+
+	private JwtParser getJwtParser(String secret) {
+		return Jwts.parserBuilder().setSigningKey(Keys.hmacShaKeyFor(secret.getBytes())).build();
 	}
 
 }
