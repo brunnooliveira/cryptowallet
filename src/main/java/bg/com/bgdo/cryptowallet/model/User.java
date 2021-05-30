@@ -11,7 +11,7 @@ import lombok.Setter;
 @Document(collection = "users")
 public class User {
 	@Id
-	private long id;
+	private String id;
 	private String username;
 	private String password;
 	private String role;

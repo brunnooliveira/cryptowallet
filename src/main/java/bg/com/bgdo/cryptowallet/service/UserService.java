@@ -1,5 +1,7 @@
 package bg.com.bgdo.cryptowallet.service;
 
+import java.util.UUID;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,7 @@ public class UserService {
 
 	public User newUser(RegisterRequest user) {
 		User newUser = new User();
+		newUser.setId(UUID.randomUUID().toString());
 		newUser.setUsername(user.getUsername());
 		newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
 		newUser.setActive(false);
