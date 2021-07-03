@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import bg.com.bgdo.cryptowallet.model.User;
 import bg.com.bgdo.cryptowallet.repository.UserRepository;
-import bg.com.bgdo.cryptowallet.request.RegisterRequest;
+import bg.com.bgdo.cryptowallet.controller.request.RegisterRequest;
 import lombok.AllArgsConstructor;
 
 @Service

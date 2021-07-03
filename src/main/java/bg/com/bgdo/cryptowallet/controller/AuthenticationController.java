@@ -1,5 +1,13 @@
 package bg.com.bgdo.cryptowallet.controller;
 
+import bg.com.bgdo.cryptowallet.controller.request.AuthenticationRequest;
+import bg.com.bgdo.cryptowallet.controller.request.AuthenticationResponse;
+import bg.com.bgdo.cryptowallet.controller.request.RegisterRequest;
+import bg.com.bgdo.cryptowallet.security.CustomUserDetailsService;
+import bg.com.bgdo.cryptowallet.security.JwtUtil;
+import bg.com.bgdo.cryptowallet.service.UserService;
+import bg.com.bgdo.cryptowallet.shared.Constants;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -10,15 +18,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import bg.com.bgdo.cryptowallet.request.AuthenticationRequest;
-import bg.com.bgdo.cryptowallet.request.AuthenticationResponse;
-import bg.com.bgdo.cryptowallet.request.RegisterRequest;
-import bg.com.bgdo.cryptowallet.security.CustomUserDetailsService;
-import bg.com.bgdo.cryptowallet.security.JwtUtil;
-import bg.com.bgdo.cryptowallet.service.UserService;
-import bg.com.bgdo.cryptowallet.shared.Constants;
-import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 @RestController
@@ -48,7 +47,7 @@ public class AuthenticationController {
 	}
 
 	@PostMapping(path = "/register")
-	public ResponseEntity<?> saveUser(@RequestBody RegisterRequest user) throws Exception {
+	public ResponseEntity<?> saveUser(@RequestBody RegisterRequest user) {
 		userService.newUser(user);
 		return ResponseEntity.ok().build();
 	}

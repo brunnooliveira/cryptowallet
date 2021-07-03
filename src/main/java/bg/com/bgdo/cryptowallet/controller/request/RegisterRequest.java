@@ -1,4 +1,4 @@
-package bg.com.bgdo.cryptowallet.request;
+package bg.com.bgdo.cryptowallet.controller.request;
 
 import lombok.Getter;
 import lombok.Setter;
