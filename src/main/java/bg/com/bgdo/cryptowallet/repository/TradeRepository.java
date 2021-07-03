@@ -1,12 +1,11 @@
 package bg.com.bgdo.cryptowallet.repository;
 
+import bg.com.bgdo.cryptowallet.model.Trade;
+import bg.com.bgdo.cryptowallet.model.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
-import bg.com.bgdo.cryptowallet.model.User;
-
 @Repository
-public interface UserRepository extends MongoRepository<User, String> {
-	User findByUsername(String username);
+public interface TradeRepository extends MongoRepository<Trade, String> {
 
 }
