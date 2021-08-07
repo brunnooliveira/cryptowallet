@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -25,8 +26,11 @@ public class TradeService {
 		return tradeRepository.save(trade);
 	}
 
-	public Page<Trade> findAll(Pageable pageable, Trade trade){
+	public List<Trade> findAll(Trade trade){
+		return tradeRepository.findAll(Example.of(trade));
+	}
+
+	public Page<Trade> findAllPageable(Pageable pageable, Trade trade){
 		return tradeRepository.findAll(Example.of(trade), pageable);
-//		return tradeRepository.findAll(pageable);
 	}
 }

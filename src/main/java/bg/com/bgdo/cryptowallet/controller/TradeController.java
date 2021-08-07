@@ -17,6 +17,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @AllArgsConstructor
@@ -35,9 +37,17 @@ public class TradeController {
   }
 
   @GetMapping
+  public ResponseEntity<List<TradeGetResponse>> getTrades(TradeGetQuery tradeGetQuery) {
+    Trade tradeQuery = tradeMapper.tradeGetQueryToTrade(tradeGetQuery);
+    List<Trade> trades = tradeService.findAll(tradeQuery);
+    List<TradeGetResponse> tradesGetResponse = trades.stream().map(trade -> tradeMapper.tradeToTradeGetResponse(trade)).collect(Collectors.toList());
+    return ResponseEntity.ok(tradesGetResponse);
+  }
+
+//  @GetMapping
   public ResponseEntity<Page<TradeGetResponse>> getTrades(Pageable pageable, TradeGetQuery tradeGetQuery) {
     Trade tradeQuery = tradeMapper.tradeGetQueryToTrade(tradeGetQuery);
-    Page<Trade> trades = tradeService.findAll(pageable, tradeQuery);
+    Page<Trade> trades = tradeService.findAllPageable(pageable, tradeQuery);
     Page<TradeGetResponse> tradesGetResponse = trades.map(trade -> tradeMapper.tradeToTradeGetResponse(trade));
     return ResponseEntity.ok(tradesGetResponse);
   }

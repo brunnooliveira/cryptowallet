@@ -27,7 +27,7 @@ public class Trade {
     private String asset;
     @NotNull
     @NotBlank
-    private String operationType;
+    private OperationType operationType;
     @NotNull
     @Positive
     private BigDecimal price;
