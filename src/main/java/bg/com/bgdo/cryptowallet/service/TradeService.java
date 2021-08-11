@@ -34,3 +34,4 @@ public class TradeService {
 		return tradeRepository.findAll(Example.of(trade), pageable);
 	}
 }
+

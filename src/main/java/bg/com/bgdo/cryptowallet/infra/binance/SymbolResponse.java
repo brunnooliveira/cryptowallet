@@ -1,4 +1,4 @@
-package bg.com.bgdo.cryptowallet.service.binance;
+package bg.com.bgdo.cryptowallet.infra.binance;
 
 import lombok.Getter;
 import lombok.Setter;

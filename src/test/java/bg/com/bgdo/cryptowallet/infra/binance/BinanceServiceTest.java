@@ -1,4 +1,4 @@
-package bg.com.bgdo.cryptowallet.service.binance;
+package bg.com.bgdo.cryptowallet.infra.binance;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.web.client.RestTemplate;
