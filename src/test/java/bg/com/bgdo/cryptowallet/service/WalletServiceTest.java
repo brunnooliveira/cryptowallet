@@ -31,7 +31,7 @@ class WalletServiceTest {
     }
 
     @Test
-    void getWallet() {
+    void shouldReturnWalletAssetQuantityAndAveragePrice() {
         when(tradeService.findAll(null)).thenReturn(getTrades());
         final List<Asset> wallet = walletService.getWallet();
 
@@ -41,13 +41,13 @@ class WalletServiceTest {
     }
 
     @Test
-    void getWalletTest() {
+    void shouldReturnWalletAveragePriceOfAsset() {
         final BigDecimal averagePrice = walletService.getAveragePrice(getTrades());
         assertEquals(new BigDecimal(15.0), averagePrice);
     }
 
     @Test
-    void getAssetQuantityTest() {
+    void shouldReturnWalletQuantityOfAsset() {
         final BigDecimal quantity = walletService.getQuantity(getTrades());
         assertEquals(new BigDecimal(2.0), quantity);
     }
