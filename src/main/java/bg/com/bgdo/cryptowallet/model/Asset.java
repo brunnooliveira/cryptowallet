@@ -12,5 +12,6 @@ public class Asset {
     private String asset;
     private BigDecimal quantity;
     private BigDecimal price;
+    private BigDecimal actualPrice;
 
 }

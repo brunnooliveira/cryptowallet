@@ -15,6 +15,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -24,6 +25,8 @@ class WalletServiceTest {
     private WalletService walletService;
     @Mock
     private TradeService tradeService;
+    @Mock
+    private BrokerService brokerService;
 
     @BeforeAll
     public void setUp() {
@@ -33,7 +36,8 @@ class WalletServiceTest {
     @Test
     void shouldReturnWalletAssetQuantityAndAveragePrice() {
         when(tradeService.findAll(null)).thenReturn(getTrades());
-        final List<Asset> wallet = walletService.getWallet();
+        when(brokerService.getAssetLastPrice(any())).thenReturn(BigDecimal.TEN);
+        final List<Asset> wallet = walletService.getAssets();
 
         assertThat(wallet.size()).isEqualTo(1);
         assertThat(wallet.get(0).getQuantity()).isEqualTo(BigDecimal.valueOf(2l));

@@ -2,6 +2,7 @@ package bg.com.bgdo.cryptowallet.service;
 
 import bg.com.bgdo.cryptowallet.model.Asset;
 import bg.com.bgdo.cryptowallet.model.Trade;
+import bg.com.bgdo.cryptowallet.model.Wallet;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,15 +15,22 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class WalletService {
 
-//    private final BrokerService brokerService;
+    private final BrokerService brokerService;
     private final TradeService tradeService;
 
-    public List<Asset> getWallet() {
+    public Wallet getWallet(){
+        return new Wallet(getAssets());
+    }
+
+    public List<Asset> getAssets() {
         final List<Trade> trades = tradeService.findAll(null);
         System.out.println(trades);
         final Map<String, List<Trade>> tradesMap = trades.stream().collect(Collectors.groupingBy(Trade::getAsset));
         final List<Asset> list = tradesMap.entrySet().stream()
-                .map(asset -> new Asset(asset.getKey(), getQuantity(asset.getValue()), getAveragePrice(asset.getValue())))
+                .map(asset -> {
+                    final BigDecimal assetLastPrice = brokerService.getAssetLastPrice(asset.getKey());
+                    return new Asset(asset.getKey(), getQuantity(asset.getValue()), getAveragePrice(asset.getValue()), assetLastPrice);
+                })
                 .collect(Collectors.toList());
         return list;
     }

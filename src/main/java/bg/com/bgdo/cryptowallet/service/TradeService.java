@@ -27,7 +27,8 @@ public class TradeService {
 	}
 
 	public List<Trade> findAll(Trade trade){
-		return tradeRepository.findAll(Example.of(trade));
+		Trade tradeFilter = trade != null ? trade : new Trade();
+		return tradeRepository.findAll(Example.of(tradeFilter));
 	}
 
 	public Page<Trade> findAllPageable(Pageable pageable, Trade trade){
