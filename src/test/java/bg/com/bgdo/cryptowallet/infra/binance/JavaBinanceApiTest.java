@@ -61,7 +61,7 @@ public class JavaBinanceApiTest {
           .map(c -> {
             Trade trade1 = new Trade();
             trade1.setTicker("BTCUSD");
-            trade1.setAmmount(quota.divide(new BigDecimal(c.getClose()), Constants.PRICE_SCALE, RoundingMode.FLOOR));
+            trade1.setAmount(quota.divide(new BigDecimal(c.getClose()), Constants.PRICE_SCALE, RoundingMode.FLOOR));
             trade1.setPrice(new BigDecimal(c.getClose()));
             return trade1;
         }).collect(Collectors.toList());

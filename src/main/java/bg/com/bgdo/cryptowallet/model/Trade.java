@@ -33,6 +33,6 @@ public class Trade {
     private BigDecimal price;
     @NotNull
     @Positive
-    private BigDecimal ammount;
+    private BigDecimal amount;
 
 }

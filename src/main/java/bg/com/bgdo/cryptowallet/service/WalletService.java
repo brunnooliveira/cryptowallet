@@ -47,14 +47,14 @@ public class WalletService {
         BigDecimal quantityTotal = BigDecimal.ZERO;
 
         for (Trade trade : trades) {
-            valorTotal = valorTotal.add((trade.getPrice().multiply(trade.getAmmount())));
-            quantityTotal = quantityTotal.add(trade.getAmmount());
+            valorTotal = valorTotal.add((trade.getPrice().multiply(trade.getAmount())));
+            quantityTotal = quantityTotal.add(trade.getAmount());
         }
         return valorTotal.divide(quantityTotal, Constants.PRICE_SCALE, RoundingMode.FLOOR);
     }
 
     public BigDecimal getQuantity(List<Trade> trades) {
-        return trades.stream().map(Trade::getAmmount).reduce(BigDecimal.ZERO, BigDecimal::add);
+        return trades.stream().map(Trade::getAmount).reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
 
