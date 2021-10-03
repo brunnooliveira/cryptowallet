@@ -2,6 +2,7 @@ package bg.com.bgdo.cryptowallet.service;
 
 import bg.com.bgdo.cryptowallet.model.Asset;
 import bg.com.bgdo.cryptowallet.model.Trade;
+import bg.com.bgdo.cryptowallet.shared.Constants;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -41,13 +42,13 @@ class WalletServiceTest {
 
         assertThat(wallet.size()).isEqualTo(1);
         assertThat(wallet.get(0).getQuantity()).isEqualTo(BigDecimal.valueOf(2l));
-        assertThat(wallet.get(0).getPrice()).isEqualTo(BigDecimal.valueOf(15l));
+        assertThat(wallet.get(0).getPrice()).isEqualTo(BigDecimal.valueOf(15l).setScale(Constants.PRICE_SCALE));
     }
 
     @Test
     void shouldReturnWalletAveragePriceOfAsset() {
         final BigDecimal averagePrice = walletService.getAveragePrice(getTrades());
-        assertEquals(new BigDecimal(15.0), averagePrice);
+        assertEquals(new BigDecimal(15.0).setScale(Constants.PRICE_SCALE), averagePrice);
     }
 
     @Test

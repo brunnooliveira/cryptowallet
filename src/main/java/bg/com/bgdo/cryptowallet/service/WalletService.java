@@ -3,14 +3,18 @@ package bg.com.bgdo.cryptowallet.service;
 import bg.com.bgdo.cryptowallet.model.Asset;
 import bg.com.bgdo.cryptowallet.model.Trade;
 import bg.com.bgdo.cryptowallet.model.Wallet;
+import bg.com.bgdo.cryptowallet.shared.Constants;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @AllArgsConstructor
 public class WalletService {
@@ -46,8 +50,7 @@ public class WalletService {
             valorTotal = valorTotal.add((trade.getPrice().multiply(trade.getQuantity())));
             quantityTotal = quantityTotal.add(trade.getQuantity());
         }
-
-        return valorTotal.divide(quantityTotal);
+        return valorTotal.divide(quantityTotal, Constants.PRICE_SCALE, RoundingMode.FLOOR);
     }
 
     public BigDecimal getQuantity(List<Trade> trades) {
