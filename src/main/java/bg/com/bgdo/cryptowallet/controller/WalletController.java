@@ -18,7 +18,8 @@ public class WalletController {
     private WalletService walletService;
 
     @GetMapping
-    public Wallet getWallets(){
-        return walletService.getWallet();
+    public Wallet getWallet(){
+        Wallet wallet = walletService.getWallet();
+        return wallet;
     }
 }

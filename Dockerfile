@@ -7,7 +7,7 @@ RUN dpkg-reconfigure -f noninteractive tzdata
 RUN mkdir /app
 WORKDIR /app
 
-COPY ../../target/cryptowallet*.jar /app/application.jar
+COPY target/cryptowallet*.jar /app/application.jar
 
 EXPOSE 8080
 
