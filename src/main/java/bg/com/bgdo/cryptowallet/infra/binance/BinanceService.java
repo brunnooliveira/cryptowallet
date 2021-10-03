@@ -19,10 +19,10 @@ public class BinanceService implements BrokerService {
 
     private static List<SymbolResponse> symbols;
     private static LocalDateTime lastUpdate;
-    private RestTemplate restTemplate;
+    private final RestTemplate restTemplate;
 
     public BinanceService() {
-        this.symbols = new ArrayList<>();
+        symbols = new ArrayList<>();
         this.restTemplate = new RestTemplate();
     }
 

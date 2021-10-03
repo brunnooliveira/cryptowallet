@@ -29,7 +29,7 @@ public class WalletService {
     public List<Asset> getAssets() {
         final List<Trade> trades = tradeService.findAll(null);
         System.out.println(trades);
-        final Map<String, List<Trade>> tradesMap = trades.stream().collect(Collectors.groupingBy(Trade::getAsset));
+        final Map<String, List<Trade>> tradesMap = trades.stream().collect(Collectors.groupingBy(Trade::getTicker));
         final List<Asset> list = tradesMap.entrySet().stream()
                 .map(asset -> {
                     final BigDecimal assetLastPrice = brokerService.getAssetLastPrice(asset.getKey());
@@ -47,14 +47,14 @@ public class WalletService {
         BigDecimal quantityTotal = BigDecimal.ZERO;
 
         for (Trade trade : trades) {
-            valorTotal = valorTotal.add((trade.getPrice().multiply(trade.getQuantity())));
-            quantityTotal = quantityTotal.add(trade.getQuantity());
+            valorTotal = valorTotal.add((trade.getPrice().multiply(trade.getAmmount())));
+            quantityTotal = quantityTotal.add(trade.getAmmount());
         }
         return valorTotal.divide(quantityTotal, Constants.PRICE_SCALE, RoundingMode.FLOOR);
     }
 
     public BigDecimal getQuantity(List<Trade> trades) {
-        return trades.stream().map(Trade::getQuantity).reduce(BigDecimal.ZERO, BigDecimal::add);
+        return trades.stream().map(Trade::getAmmount).reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
 

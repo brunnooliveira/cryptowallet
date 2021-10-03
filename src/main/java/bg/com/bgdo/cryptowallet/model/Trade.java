@@ -24,7 +24,7 @@ public class Trade {
     private LocalDate date;
     @NotNull
     @NotBlank
-    private String asset;
+    private String ticker;
     @NotNull
     @NotBlank
     private OperationType operationType;
@@ -33,6 +33,6 @@ public class Trade {
     private BigDecimal price;
     @NotNull
     @Positive
-    private BigDecimal quantity;
+    private BigDecimal ammount;
 
 }

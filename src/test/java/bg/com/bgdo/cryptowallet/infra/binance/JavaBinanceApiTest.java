@@ -13,12 +13,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -55,7 +52,7 @@ public class JavaBinanceApiTest {
         final List<Candlestick> btcusdt =
           client.getCandlestickBars(ticker, CandlestickInterval.WEEKLY, bars, null, null)
             .stream()
-            .filter(c -> onlyRedBars ? Double.valueOf(c.getClose()) < Double.valueOf(c.getOpen()) : true)
+            .filter(c -> !onlyRedBars || Double.valueOf(c.getClose()) < Double.valueOf(c.getOpen()))
             .collect(Collectors.toList());
 //        btcusdt.forEach(c -> log.info(c.toString()));
 
@@ -63,8 +60,8 @@ public class JavaBinanceApiTest {
         final List<Trade> trades = btcusdt.stream()
           .map(c -> {
             Trade trade1 = new Trade();
-            trade1.setAsset("BTCUSD");
-            trade1.setQuantity(quota.divide(new BigDecimal(c.getClose()), Constants.PRICE_SCALE, RoundingMode.FLOOR));
+            trade1.setTicker("BTCUSD");
+            trade1.setAmmount(quota.divide(new BigDecimal(c.getClose()), Constants.PRICE_SCALE, RoundingMode.FLOOR));
             trade1.setPrice(new BigDecimal(c.getClose()));
             return trade1;
         }).collect(Collectors.toList());

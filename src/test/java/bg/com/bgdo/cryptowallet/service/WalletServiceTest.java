@@ -59,13 +59,13 @@ class WalletServiceTest {
 
     private List<Trade> getTrades(){
         Trade trade1 = new Trade();
-        trade1.setAsset("BTCUSD");
-        trade1.setQuantity(new BigDecimal(1.0));
+        trade1.setTicker("BTCUSD");
+        trade1.setAmmount(new BigDecimal(1.0));
         trade1.setPrice(new BigDecimal(10.0));
 
         Trade trade2 = new Trade();
-        trade2.setAsset("BTCUSD");
-        trade2.setQuantity(new BigDecimal(1.0));
+        trade2.setTicker("BTCUSD");
+        trade2.setAmmount(new BigDecimal(1.0));
         trade2.setPrice(new BigDecimal(20.0));
 
         return Arrays.asList(trade1, trade2);
