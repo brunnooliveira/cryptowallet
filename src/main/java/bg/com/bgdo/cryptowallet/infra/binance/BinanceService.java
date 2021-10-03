@@ -27,10 +27,10 @@ public class BinanceService implements BrokerService {
     }
 
     @Override
-    public BigDecimal getAssetLastPrice(String asset) {
+    public BigDecimal getAssetLastPrice(String ticker) {
         updateSymbols();
         final List<SymbolResponse> symbolResponses = symbols.stream()
-                .filter(symbolResponse -> symbolResponse.getSymbol().equals(asset))
+                .filter(symbolResponse -> symbolResponse.getSymbol().equals(ticker))
                 .collect(Collectors.toList());
 
         final SymbolResponse symbol = !symbolResponses.isEmpty() ? symbolResponses.get(0) : new SymbolResponse();

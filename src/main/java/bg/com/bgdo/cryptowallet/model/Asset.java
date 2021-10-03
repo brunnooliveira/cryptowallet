@@ -9,8 +9,8 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class Asset {
 
-    private String asset;
-    private BigDecimal quantity;
+    private String ticker;
+    private BigDecimal amount;
     private BigDecimal price;
     private BigDecimal actualPrice;
 

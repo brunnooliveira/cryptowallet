@@ -9,8 +9,8 @@ import java.math.BigDecimal;
 @Setter
 public class TradeGetResponse {
     private Long date;
-    private String asset;
+    private String ticker;
     private String operationType;
     private BigDecimal price;
-    private BigDecimal quantity;
+    private BigDecimal amount;
 }

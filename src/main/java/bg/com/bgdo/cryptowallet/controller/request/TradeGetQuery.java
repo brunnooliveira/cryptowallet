@@ -7,6 +7,6 @@ import lombok.Setter;
 @Setter
 public class TradeGetQuery {
     private Long date;
-    private String asset;
+    private String ticker;
     private String operationType;
 }

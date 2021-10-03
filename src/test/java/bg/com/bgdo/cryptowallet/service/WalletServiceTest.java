@@ -41,7 +41,7 @@ class WalletServiceTest {
         final List<Asset> wallet = walletService.getAssets();
 
         assertThat(wallet.size()).isEqualTo(1);
-        assertThat(wallet.get(0).getQuantity()).isEqualTo(BigDecimal.valueOf(2l));
+        assertThat(wallet.get(0).getAmount()).isEqualTo(BigDecimal.valueOf(2l));
         assertThat(wallet.get(0).getPrice()).isEqualTo(BigDecimal.valueOf(15l).setScale(Constants.PRICE_SCALE));
     }
 

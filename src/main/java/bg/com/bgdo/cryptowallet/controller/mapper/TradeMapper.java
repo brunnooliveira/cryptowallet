@@ -19,7 +19,7 @@ public interface TradeMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "price", ignore = true)
-    @Mapping(target = "quantity", ignore = true)
+    @Mapping(target = "amount", ignore = true)
     Trade tradeGetQueryToTrade(TradeGetQuery tradeGetQuery);
 
     TradeGetResponse tradeToTradeGetResponse(Trade trade);

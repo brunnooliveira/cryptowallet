@@ -18,7 +18,7 @@ public class TradePostRequest {
   private Long date;
   @NotNull
   @NotBlank
-  private String asset;
+  private String ticker;
   @NotNull
   @NotBlank
   private String operationType;
@@ -27,6 +27,6 @@ public class TradePostRequest {
   private BigDecimal price;
   @NotNull
   @Positive
-  private BigDecimal quantity;
+  private BigDecimal amount;
 
 }
