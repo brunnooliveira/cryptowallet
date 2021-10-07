@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @AllArgsConstructor
 @RestController
-@RequestMapping(Constants.API_URL_BASE_PRIVATE + "/wallets")
+@RequestMapping(Constants.URL_API_BASE_PRIVATE + "/wallets")
 public class WalletController {
 
     private WalletService walletService;

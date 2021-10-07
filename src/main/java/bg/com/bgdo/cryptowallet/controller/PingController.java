@@ -10,12 +10,12 @@ import java.time.LocalDate;
 @RestController
 public class PingController {
 
-  @GetMapping(path = Constants.API_URL_BASE_PUBLIC + "/ping")
+  @GetMapping(path = Constants.URL_API_BASE_PUBLIC + "/ping")
   public ResponseEntity<String> ping() {
     return ResponseEntity.ok("pong");
   }
 
-  @GetMapping(path = Constants.API_URL_BASE_PRIVATE + "/ping")
+  @GetMapping(path = Constants.URL_API_BASE_PRIVATE + "/ping")
   public ResponseEntity<LocalDate> pingPrivate() {
     return ResponseEntity.ok(LocalDate.now());
   }

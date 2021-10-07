@@ -17,13 +17,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.websocket.server.PathParam;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Slf4j
 @AllArgsConstructor
 @RestController
-@RequestMapping(Constants.API_URL_BASE_PRIVATE + "/trades")
+@RequestMapping(Constants.URL_API_BASE_PRIVATE + "/trades")
 public class TradeController {
 
   private final TradeService tradeService;
