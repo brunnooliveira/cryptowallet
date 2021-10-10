@@ -57,9 +57,4 @@ jobs:
           key: ${{ secrets.ORACLEVM_KEY }}
           script: |
             sudo docker pull brunnogoncalves/cryptowallet:latest
-            sudo docker run -d --name=cryptowallet -p 8080:8080 \
-              -e JWT_SECRET=${{ secrets.JWT_SECRET }} \
-              -e JWT_EXPIRATION_IN_MS=${{ secrets.JWT_EXPIRATION_IN_MS }} \
-              -e MONGO_DB_DATABASE=${{ secrets.MONGO_DB_DATABASE }} \
-              -e MONGO_DB_URI=${{ secrets.MONGO_DB_URI }} \
-              brunnogoncalves/cryptowallet:latest
+            sudo docker run -d --name=cryptowallet -p 8080:8080 -e JWT_SECRET=${{ secrets.JWT_SECRET }} -e JWT_EXPIRATION_IN_MS=${{ secrets.JWT_EXPIRATION_IN_MS }} -e MONGO_DB_DATABASE=${{ secrets.MONGO_DB_DATABASE }} -e MONGO_DB_URI=${{ secrets.MONGO_DB_URI }} brunnogoncalves/cryptowallet:latest
