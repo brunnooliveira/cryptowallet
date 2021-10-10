@@ -56,7 +56,7 @@ jobs:
           username: ${{ secrets.ORACLEVM_USER }}
           key: ${{ secrets.ORACLEVM_KEY }}
           script: |
-            sudo docker pull ${{ secrets.DOCKER_REPO }}:latest
+            sudo docker pull brunnogoncalves/cryptowallet:latest
             sudo docker rm -f cryptowallet
             sudo docker run -d --name=cryptowallet -p 8080:8080 \
               -e JWT_SECRET=${{ secrets.JWT_SECRET }} \
