@@ -44,3 +44,12 @@ jobs:
 
       - name: Publish Docker image
         run: docker push ${{ secrets.DOCKER_REPO }}
+
+      - name: Deploy Docker Image
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.ORACLEVM_HOST }}
+          username: ${{ secrets.ORACLEVM_USER }}
+          key: ${{ secrets.ORACLEVM_KEY }}
+          script: |
+            sudo docker ps
