@@ -1,5 +1,7 @@
 package bg.com.bgdo.cryptowallet.security;
 
+import bg.com.bgdo.cryptowallet.shared.Constants;
+import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -11,9 +13,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
-import bg.com.bgdo.cryptowallet.shared.Constants;
-import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 @Configuration
@@ -46,7 +45,9 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.authorizeRequests()
 //			.antMatchers("/helloadmin").hasRole("ADMIN")
 //			.antMatchers("/hellouser").hasAnyRole("USER", "ADMIN")
-			.antMatchers( Constants.API_URL_BASE_PUBLIC + "/**" )
+			.antMatchers( Constants.URL_SWAGGER + ".html",  Constants.URL_SWAGGER + "/**", Constants.URL_API_DOCS + "/**")
+			.permitAll()
+			.antMatchers( Constants.URL_API_BASE_PUBLIC + "/**" )
 			.permitAll()
 			.anyRequest().authenticated()
 			.and().exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)

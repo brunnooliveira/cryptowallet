@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping(path = Constants.API_URL_BASE_PUBLIC)
+@RequestMapping(path = Constants.URL_API_BASE_PUBLIC)
 public class AuthenticationController {
 
 	private AuthenticationManager authenticationManager;
