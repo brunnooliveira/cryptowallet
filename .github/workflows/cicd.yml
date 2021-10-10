@@ -14,7 +14,7 @@ jobs:
       - name: Checkout Binance-Java-Api
         uses: actions/checkout@v2
         with:
-          name: brunnooliveira/binance-java-api
+          repository: brunnooliveira/binance-java-api
           ref: master
 
       - name: Where we are?
