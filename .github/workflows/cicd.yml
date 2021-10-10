@@ -63,4 +63,4 @@ jobs:
               -e JWT_EXPIRATION_IN_MS=${{ secrets.JWT_EXPIRATION_IN_MS }} \
               -e MONGO_DB_DATABASE=${{ secrets.MONGO_DB_DATABASE }} \
               -e MONGO_DB_URI=${{ secrets.MONGO_DB_URI }} \
-              $DOCKER_REPO:latest
+              brunnogoncalves/cryptowallet:latest
