@@ -12,10 +12,10 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout Binance-Java-Api
-        uses: actions/checkout@v2
-        with:
-          repository: brunnooliveira/binance-java-api
-          ref: master
+        run: |
+          git clone https://github.com/brunnooliveira/binance-java-api.git
+          cd binance-java-api
+          mvn clean install -DskipTests
 
       - name: Where we are?
         run: |
