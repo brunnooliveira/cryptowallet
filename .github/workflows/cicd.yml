@@ -40,10 +40,6 @@ jobs:
       - name: Build Docker image
         run: docker build -t ${{ secrets.DOCKER_REPO }}:latest -t ${{ secrets.DOCKER_REPO }}:$VERSION .
 
-      - name: Where we are?
-        run: |
-          docker images
-
       - name: Publish Docker image
         run: |
           docker push ${{ secrets.DOCKER_REPO }}:latest
