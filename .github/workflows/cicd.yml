@@ -55,4 +55,13 @@ jobs:
           host: ${{ secrets.ORACLEVM_HOST }}
           username: ${{ secrets.ORACLEVM_USER }}
           key: ${{ secrets.ORACLEVM_KEY }}
-          script: ./deploy-cryptowallet.sh
+          script: |
+            sudo docker pull ${{ secrets.DOCKER_REPO }}:latest
+            sudo docker rm -f cryptowallet
+            sudo docker run -d --name=cryptowallet -p 8080:8080 \
+              -e JWT_SECRET='${{ secrets.JWT_SECRET }}' \
+              -e JWT_EXPIRATION_IN_MS=${{ secrets.JWT_EXPIRATION_IN_MS }} \
+              -e MONGO_DB_DATABASE='${{ secrets.MONGO_DB_DATABASE }}' \
+              -e MONGO_DB_URI='${{ secrets.MONGO_DB_URI }}' \
+              ${{ secrets.DOCKER_REPO }}:latest
+#          script: ./deploy-cryptowallet.sh
