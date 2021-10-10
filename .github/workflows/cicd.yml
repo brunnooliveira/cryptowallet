@@ -11,7 +11,7 @@ jobs:
     name: Build, Test & Deploy
     runs-on: ubuntu-20.04
     env:
-      VERSION: 0.0.1-beta
+      VERSION: 0.0.2-beta
     steps:
       - name: Checkout Binance-Java-Api
         run: |
@@ -55,4 +55,11 @@ jobs:
           username: ${{ secrets.ORACLEVM_USER }}
           key: ${{ secrets.ORACLEVM_KEY }}
           script: |
-            sudo docker ps
+            sudo docker pull ${{ secrets.DOCKER_REPO }}:latest
+            sudo docker rm -f cryptowallet
+            sudo run -d --name=cryptowallet -p 8080:8080 \
+              -e JWT_SECRET=${{ secrets.JWT_SECRET }} \
+              -e JWT_EXPIRATION_IN_MS=${{ secrets.JWT_EXPIRATION_IN_MS }} \
+              -e MONGO_DB_DATABASE=${{ secrets.MONGO_DB_DATABASE }} \
+              -e MONGO_DB_URI=${{ secrets.MONGO_DB_URI }} \
+              ${{ secrets.DOCKER_REPO }}:latest
