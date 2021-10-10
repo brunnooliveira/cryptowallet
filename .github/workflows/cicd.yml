@@ -31,9 +31,9 @@ jobs:
           java-version: 11.0.4
 
       - name: Where we are?
-          run: |
-            pwd
-            ls -la
+        run: |
+          pwd
+          ls -la
 
       - name: Maven Package
         run: mvn -B clean package -DskipTests
