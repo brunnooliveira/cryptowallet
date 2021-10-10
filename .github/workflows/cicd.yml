@@ -13,9 +13,9 @@ jobs:
     steps:
       - name: Checkout Binance-Java-Api
         uses: actions/checkout@main
-          with:
-            name: brunnooliveira/binance-java-api
-            ref: master
+        with:
+          name: brunnooliveira/binance-java-api
+          ref: master
 
       - name: Where we are?
         run: |
