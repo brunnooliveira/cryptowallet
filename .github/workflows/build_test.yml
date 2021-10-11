@@ -5,7 +5,7 @@ on:
 
 jobs:
   pipeline:
-    name: Build, Test & Deploy
+    name: Build & Test
     runs-on: ubuntu-20.04
     env:
       VERSION: 0.0.2-beta
