@@ -34,5 +34,8 @@ public class Trade {
     @NotNull
     @Positive
     private BigDecimal amount;
+    @NotNull
+    @NotBlank
+    private String exchange;
 
 }
