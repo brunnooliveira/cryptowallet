@@ -22,6 +22,7 @@ public class UserService {
 		newUser.setUsername(user.getUsername());
 		newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
 		newUser.setActive(false);
-		return userRepository.save(newUser);
+		userRepository.save(newUser);
+		return newUser;
 	}
 }
