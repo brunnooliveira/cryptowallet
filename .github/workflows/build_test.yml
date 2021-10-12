@@ -1,16 +1,11 @@
 name: Release - Test, Build & Redeploy
 on:
   push:
-    branches:
-      - 'release/**'
-  pull_request:
-    branches:
-      - 'release/**'
   workflow_dispatch:
 
 jobs:
   pipeline:
-    name: Build, Test & Deploy
+    name: Build & Test
     runs-on: ubuntu-20.04
     env:
       VERSION: 0.0.2-beta
@@ -54,30 +49,3 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=brunnooliveira_cryptowallet
-
-      - name: Login to Docker Hub
-        run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASS }}
-
-      - name: Build Docker image
-        run: docker build -t ${{ secrets.DOCKER_REPO }}:latest -t ${{ secrets.DOCKER_REPO }}:$VERSION .
-
-      - name: Publish Docker image
-        run: |
-          docker push ${{ secrets.DOCKER_REPO }}:latest
-          docker push ${{ secrets.DOCKER_REPO }}:$VERSION
-
-      - name: Deploy Docker Image
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.ORACLEVM_HOST }}
-          username: ${{ secrets.ORACLEVM_USER }}
-          key: ${{ secrets.ORACLEVM_KEY }}
-          script: |
-            sudo docker pull ${{ secrets.DOCKER_REPO }}:latest
-            sudo docker rm -f cryptowallet
-            sudo docker run -d --name=cryptowallet -p 8080:8080 \
-              -e JWT_SECRET='${{ secrets.JWT_SECRET }}' \
-              -e JWT_EXPIRATION_IN_MS=${{ secrets.JWT_EXPIRATION_IN_MS }} \
-              -e MONGO_DB_DATABASE='${{ secrets.MONGO_DB_DATABASE }}' \
-              -e MONGO_DB_URI='${{ secrets.MONGO_DB_URI }}' \
-              ${{ secrets.DOCKER_REPO }}:latest

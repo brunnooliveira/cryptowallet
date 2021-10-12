@@ -18,12 +18,11 @@ public class TradeService {
 	private TradeRepository tradeRepository;
 
 	public Trade save(Trade trade) {
-
 		if(trade.getId() == null || trade.getId().isEmpty()) {
 			trade.setId(UUID.randomUUID().toString());
 		}
-
-		return tradeRepository.save(trade);
+		tradeRepository.save(trade);
+		return trade;
 	}
 
 	public List<Trade> findAll(Trade trade){
