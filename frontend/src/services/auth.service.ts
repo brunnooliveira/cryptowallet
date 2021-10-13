@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8080/api/public/';
+const API_PUBLIC_URL = 'public/api/';
 
 export const register = (username: string, email: string, password: string) => {
-  return axios.post<any>(API_URL + 'register', {
+  return axios.post<any>(API_PUBLIC_URL + 'register', {
     username,
     email,
     password,
@@ -12,7 +12,7 @@ export const register = (username: string, email: string, password: string) => {
 
 export const login = (username: string, password: string) => {
   return axios
-    .post<any>(API_URL + 'authenticate', {
+    .post<any>(API_PUBLIC_URL + 'authenticate', {
       username,
       password,
     })

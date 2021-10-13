@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 
-import { getPublicContent } from '../services/user.service';
+import { getWallet } from '../services/wallet.service';
 
 const Home: React.FC = () => {
-  const [content, setContent] = useState<string>('');
+  const [content, setContent] = useState<any>('');
 
   useEffect(() => {
-    getPublicContent().then(
+    getWallet().then(
       (response) => {
         setContent(response.data);
       },
@@ -26,7 +26,10 @@ const Home: React.FC = () => {
   return (
     <div className="container">
       <header className="jumbotron">
-        <h3>{content}</h3>
+        <p>Total paid: {content['totalPaid']}</p>
+        <p>Actual value: {content['actualValue']}</p>
+        <p>Actual value BRL: {content['actualValueBRL']}</p>
+        <p>Profitability USD: {content['profitability']}</p>
       </header>
     </div>
   );
