@@ -20,6 +20,7 @@ public class UserService {
 		User newUser = new User();
 		newUser.setId(UUID.randomUUID().toString());
 		newUser.setUsername(user.getUsername());
+		newUser.setEmail(user.getEmail());
 		newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
 		newUser.setActive(false);
 		userRepository.save(newUser);
