@@ -76,6 +76,14 @@ const App: React.FC = () => {
 
           {currentUser && (
             <li className="nav-item">
+              <Link to={'/trades'} className="nav-link">
+                Trades
+              </Link>
+            </li>
+          )}
+
+          {currentUser && (
+            <li className="nav-item">
               <Link to={'/user'} className="nav-link">
                 User
               </Link>
@@ -122,6 +130,8 @@ const App: React.FC = () => {
           <Route path="/user" component={BoardUser} />
           <Route path="/mod" component={BoardModerator} />
           <Route path="/admin" component={BoardAdmin} />
+
+          <Route path="/trades" component={Home} />
         </Switch>
       </div>
     </div>
