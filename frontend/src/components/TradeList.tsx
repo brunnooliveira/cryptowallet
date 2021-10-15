@@ -15,15 +15,27 @@ const TradeList: React.FC<Props> = ({ history }) => {
   const [trades, setTrades] = useState<ITrade[]>();
 
   useEffect(() => {
-    // Your code here
     listTrades();
   }, []);
 
   const listTrades = async () => {
-    // Your code here
-    const response = await list();
-    setTrades(response.data);
-    // console.info(response);
+    setLoading(true);
+    try {
+      const response = await list();
+      setTrades(response.data);
+      setLoading(false);
+    } catch (error: any) {
+      console.info(JSON.stringify(error));
+      const resMessage =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      setLoading(false);
+      setMessage(resMessage);
+    }
   };
 
   // const handleList = async (formValue: ITrade) => {
@@ -31,27 +43,21 @@ const TradeList: React.FC<Props> = ({ history }) => {
   //   setLoading(true);
 
   //   console.info(formValue);
-  //   try {
-  //     await save(formValue);
-  //     setLoading(false);
-  //   } catch (error: any) {
-  //     console.info(JSON.stringify(error));
-  //     const resMessage =
-  //       (error.response &&
-  //         error.response.data &&
-  //         error.response.data.message) ||
-  //       error.message ||
-  //       error.toString();
 
-  //     setLoading(false);
-  //     setMessage(resMessage);
-  //   }
   // };
 
   return (
     <div className="col-md-12">
+      {message && (
+        <div className="form-group">
+          <div className="alert alert-danger" role="alert">
+            {message}
+          </div>
+        </div>
+      )}
       <div className="card">
         <h2>Trades</h2>
+        {loading && <span className="spinner-border spinner-border-sm"></span>}
         <table className="table">
           <thead>
             <tr>
