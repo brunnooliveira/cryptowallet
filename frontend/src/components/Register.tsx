@@ -30,9 +30,9 @@ const Register: React.FC = () => {
     password: Yup.string()
       .test(
         'len',
-        'The password must be between 6 and 40 characters.',
+        'The password must be between 3 and 40 characters.',
         (val: any) =>
-          val && val.toString().length >= 6 && val.toString().length <= 40
+          val && val.toString().length >= 3 && val.toString().length <= 40
       )
       .required('This field is required!'),
   });

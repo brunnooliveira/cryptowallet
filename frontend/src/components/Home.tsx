@@ -26,10 +26,10 @@ const Home: React.FC = () => {
   return (
     <div className="container">
       <header className="jumbotron">
-        <p>Total paid: {content['totalPaid']}</p>
-        <p>Actual value: {content['actualValue']}</p>
-        <p>Actual value BRL: {content['actualValueBRL']}</p>
-        <p>Profitability USD: {content['profitability']}</p>
+        <p>Total paid: {content['totalPaid']?.toFixed(2)}</p>
+        <p>Actual value: {content['actualValue']?.toFixed(2)}</p>
+        <p>Actual value BRL: {content['actualValueBRL']?.toFixed(2)}</p>
+        <p>Profitability USD: {content['profitability']?.toFixed(2)}</p>
       </header>
     </div>
   );
