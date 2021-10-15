@@ -29,12 +29,13 @@ public class TradeController {
 
   private final TradeService tradeService;
   private final TradeMapper tradeMapper;
+  private final ObjectMapper objectMapper;
 
   @PostMapping
   public ResponseEntity newTrade(@RequestBody @Valid TradePostRequest tradePostRequest) throws JsonProcessingException {
     Trade trade = tradeMapper.tradePostRequestToTrade(tradePostRequest);
     tradeService.save(trade);
-    return ResponseEntity.ok(new ObjectMapper().writeValueAsString(tradePostRequest));
+    return ResponseEntity.ok(objectMapper.writeValueAsString(tradePostRequest));
   }
 
   @GetMapping

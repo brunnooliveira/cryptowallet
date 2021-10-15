@@ -2,6 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { Switch, Route, Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'react-datepicker/dist/react-datepicker.css';
 import './App.css';
 
 import * as AuthService from './services/auth.service';
@@ -16,6 +17,8 @@ import BoardModerator from './components/BoardModerator';
 import BoardAdmin from './components/BoardAdmin';
 
 import EventBus from './common/EventBus';
+import TradeForm from './components/TradeForm';
+import TradeList from './components/TradeList';
 
 const App: React.FC = () => {
   const [showModeratorBoard, setShowModeratorBoard] = useState<boolean>(false);
@@ -84,6 +87,14 @@ const App: React.FC = () => {
 
           {currentUser && (
             <li className="nav-item">
+              <Link to={'/trade'} className="nav-link">
+                Trade
+              </Link>
+            </li>
+          )}
+
+          {currentUser && (
+            <li className="nav-item">
               <Link to={'/user'} className="nav-link">
                 User
               </Link>
@@ -131,7 +142,8 @@ const App: React.FC = () => {
           <Route path="/mod" component={BoardModerator} />
           <Route path="/admin" component={BoardAdmin} />
 
-          <Route path="/trades" component={Home} />
+          <Route path="/trade" component={TradeForm} />
+          <Route path="/trades" component={TradeList} />
         </Switch>
       </div>
     </div>

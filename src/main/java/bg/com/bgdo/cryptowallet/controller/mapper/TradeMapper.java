@@ -24,15 +24,15 @@ public interface TradeMapper {
 
     TradeGetResponse tradeToTradeGetResponse(Trade trade);
 
-    default LocalDate map(Long time) {
-        if(time == null)
-            return null;
-        return Instant.ofEpochMilli(time).atOffset(ZoneOffset.UTC).toLocalDate();
-    }
-
-    default Long map(LocalDate date) {
-        if(date == null)
-            return null;
-        return date.atStartOfDay().toInstant(ZoneOffset.UTC).toEpochMilli();
-    }
+//    default LocalDate map(Long time) {
+//        if(time == null)
+//            return null;
+//        return Instant.ofEpochMilli(time).atOffset(ZoneOffset.UTC).toLocalDate();
+//    }
+//
+//    default Long map(LocalDate date) {
+//        if(date == null)
+//            return null;
+//        return date.atStartOfDay().toInstant(ZoneOffset.UTC).toEpochMilli();
+//    }
 }

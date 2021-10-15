@@ -86,7 +86,7 @@ public class JwtUtil {
 		if (isUser != null && isAdmin) {
 			roles = Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
 		}
-		return roles;
+		return Objects.isNull(roles) ? Collections.emptyList() : roles;
 
 	}
 
