@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { RouteComponentProps } from 'react-router-dom';
+import { Link, RouteComponentProps } from 'react-router-dom';
 import { list } from '../services/trade.service';
 import ITrade from '../types/trade.type';
 
@@ -72,14 +72,17 @@ const TradeList: React.FC<Props> = ({ history }) => {
           </thead>
           <tbody>
             {trades?.map((trade) => (
-              <tr>
+              <tr key={trade.id}>
                 <th scope="row">1</th>
-                <td>{trade.date}</td>
+                <td>{new Date(trade.date).toLocaleDateString()}</td>
                 <td>{trade.ticker}</td>
                 <td>{trade.operationType}</td>
                 <td>{trade.price}</td>
                 <td>{trade.amount}</td>
                 <td>{trade.exchange}</td>
+                <td>
+                  <Link to={`/trade/${trade.id}`}>edit</Link>
+                </td>
               </tr>
             ))}
           </tbody>

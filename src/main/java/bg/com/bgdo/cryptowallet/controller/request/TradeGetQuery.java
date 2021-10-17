@@ -4,11 +4,12 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
 public class TradeGetQuery {
-    private LocalDate date;
+    private Long date;
     private String ticker;
     private String operationType;
 }

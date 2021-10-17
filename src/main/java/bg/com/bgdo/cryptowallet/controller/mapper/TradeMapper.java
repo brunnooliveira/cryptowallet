@@ -3,6 +3,7 @@ package bg.com.bgdo.cryptowallet.controller.mapper;
 import bg.com.bgdo.cryptowallet.controller.request.TradeGetQuery;
 import bg.com.bgdo.cryptowallet.controller.request.TradeGetResponse;
 import bg.com.bgdo.cryptowallet.controller.request.TradePostRequest;
+import bg.com.bgdo.cryptowallet.controller.request.TradePutRequest;
 import bg.com.bgdo.cryptowallet.model.Trade;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -16,6 +17,8 @@ public interface TradeMapper {
 
     @Mapping(target = "id", ignore = true)
     Trade tradePostRequestToTrade(TradePostRequest tradePostRequest);
+
+    Trade tradePutRequestToTrade(TradePutRequest tradePutRequest);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "price", ignore = true)
