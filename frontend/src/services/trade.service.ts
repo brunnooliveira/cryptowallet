@@ -1,5 +1,4 @@
 import axios from 'axios';
-import ITrade from '../types/trade.type';
 import authToken from './auth-token';
 
 const API_URL = '/api/';
