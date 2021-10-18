@@ -24,13 +24,13 @@ const Home: React.FC = () => {
   }, []);
 
   return (
-    <div className="container">
-      <header className="jumbotron">
-        <p>Total paid: {content['totalPaid']?.toFixed(2)}</p>
-        <p>Actual value: {content['actualValue']?.toFixed(2)}</p>
-        <p>Actual value BRL: {content['actualValueBRL']?.toFixed(2)}</p>
-        <p>Profitability USD: {content['profitability']?.toFixed(2)}</p>
-      </header>
+    <div className="col-md-12">
+      <div className="card">
+        <h5>Total paid: {content['totalPaid']?.toFixed(2)}</h5>
+        <h5>Actual value: {content['actualValue']?.toFixed(2)}</h5>
+        <h5>Actual value BRL: {content['actualValueBRL']?.toFixed(2)}</h5>
+        <h5>Profitability USD: {content['profitability']?.toFixed(2)}</h5>
+      </div>
     </div>
   );
 };

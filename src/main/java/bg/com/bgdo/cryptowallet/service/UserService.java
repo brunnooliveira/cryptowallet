@@ -17,6 +17,13 @@ public class UserService {
 	private UserRepository userRepository;
 
 	public User newUser(RegisterRequest user) {
+
+		userRepository.findByUsername(user.getUsername())
+			.ifPresent(u -> {throw new IllegalArgumentException("Username already exists");});
+
+		userRepository.findByEmail(user.getEmail())
+			.ifPresent(u -> {throw new IllegalArgumentException("User email already exists");});
+
 		User newUser = new User();
 		newUser.setId(UUID.randomUUID().toString());
 		newUser.setUsername(user.getUsername());

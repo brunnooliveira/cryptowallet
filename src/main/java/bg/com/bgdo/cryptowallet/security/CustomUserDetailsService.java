@@ -1,6 +1,5 @@
 package bg.com.bgdo.cryptowallet.security;
 
-import bg.com.bgdo.cryptowallet.model.User;
 import bg.com.bgdo.cryptowallet.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -16,17 +15,16 @@ import java.util.List;
 @AllArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
 
-	private UserRepository userRepository;
+  private UserRepository userRepository;
 
-	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		List<SimpleGrantedAuthority> roles = null;
-
-		User user = userRepository.findByUsername(username);
-		if (user != null) {
-			roles = Arrays.asList(new SimpleGrantedAuthority("ROLE_" + user.getRole()));
-			return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), roles);
-		}
-		throw new UsernameNotFoundException("User not found with the name " + username);
-	}
+  @Override
+  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    return userRepository
+      .findByUsername(username)
+      .map(user -> {
+        List<SimpleGrantedAuthority> roles = Arrays.asList(new SimpleGrantedAuthority("ROLE_" + user.getRole()));
+        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), roles);
+      })
+      .orElseThrow(() -> new UsernameNotFoundException("User not found with the name " + username));
+  }
 }
