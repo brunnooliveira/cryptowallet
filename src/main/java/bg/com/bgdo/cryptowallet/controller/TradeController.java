@@ -4,6 +4,7 @@ import bg.com.bgdo.cryptowallet.controller.mapper.TradeMapper;
 import bg.com.bgdo.cryptowallet.controller.request.TradeGetQuery;
 import bg.com.bgdo.cryptowallet.controller.request.TradeGetResponse;
 import bg.com.bgdo.cryptowallet.controller.request.TradePostRequest;
+import bg.com.bgdo.cryptowallet.controller.request.TradePutRequest;
 import bg.com.bgdo.cryptowallet.model.Trade;
 import bg.com.bgdo.cryptowallet.service.TradeService;
 import bg.com.bgdo.cryptowallet.shared.Constants;
@@ -17,8 +18,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.websocket.server.PathParam;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -38,12 +39,27 @@ public class TradeController {
     return ResponseEntity.ok(objectMapper.writeValueAsString(tradePostRequest));
   }
 
+  @PutMapping
+  public ResponseEntity updateTrade(@RequestBody @Valid TradePutRequest tradePutRequest) throws JsonProcessingException {
+    Trade trade = tradeMapper.tradePutRequestToTrade(tradePutRequest);
+    tradeService.save(trade);
+    return ResponseEntity.ok(objectMapper.writeValueAsString(tradePutRequest));
+  }
+
   @GetMapping
   public ResponseEntity<List<TradeGetResponse>> getTrades(TradeGetQuery tradeGetQuery) {
     Trade tradeQuery = tradeMapper.tradeGetQueryToTrade(tradeGetQuery);
     List<Trade> trades = tradeService.findAll(tradeQuery);
     List<TradeGetResponse> tradesGetResponse = trades.stream().map(trade -> tradeMapper.tradeToTradeGetResponse(trade)).collect(Collectors.toList());
     return ResponseEntity.ok(tradesGetResponse);
+  }
+
+  @GetMapping("/{id}")
+  public ResponseEntity getTrade(@PathVariable("id") String id) {
+    Optional<Trade> trade = tradeService.findById(id);
+    return trade
+      .map(t -> ResponseEntity.ok(t))
+      .orElse(ResponseEntity.noContent().build());
   }
 
 //  @GetMapping

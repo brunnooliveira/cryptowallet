@@ -1,6 +1,5 @@
 package bg.com.bgdo.cryptowallet.controller.request;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;
@@ -15,8 +14,11 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class TradePostRequest {
+public class TradePutRequest {
 
+  @NotNull
+  @NotBlank
+  private String id;
   @NotNull
   private Long date;
   @NotNull

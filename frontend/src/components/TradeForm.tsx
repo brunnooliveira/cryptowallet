@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { RouteComponentProps } from 'react-router-dom';
@@ -6,27 +6,31 @@ import DatePicker from 'react-datepicker';
 import CurrencyInput from 'react-currency-input-field';
 
 import ITrade from '../types/trade.type';
-import { save } from '../services/trade.service';
+import { save, get } from '../services/trade.service';
 
 interface RouterProps {
-  history: string;
+  // history: string;
+  id: string;
 }
 
 type Props = RouteComponentProps<RouterProps>;
 
-const TradeForm: React.FC<Props> = ({ history }) => {
+const TradeForm: React.FC<Props> = ({ history, match }) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [message, setMessage] = useState<string>('');
-
-  const initialValues: ITrade = {
+  const [initialValues, setInitialValues] = useState<ITrade>({
     id: '',
     date: new Date(),
     ticker: 'BTCUSDT',
     operationType: 'BUY',
-    price: 0.0,
-    amount: 0.0,
+    price: 0,
+    amount: 0,
     exchange: 'BITCOINTRADE',
-  };
+  });
+
+  useEffect(() => {
+    loadTrade(match.params.id);
+  }, [match.params.id]);
 
   const validationSchema = Yup.object().shape({
     date: Yup.string().required('This field is required!'),
@@ -37,6 +41,20 @@ const TradeForm: React.FC<Props> = ({ history }) => {
     exchange: Yup.string().required('This field is required!'),
   });
 
+  const loadTrade = async (id: string) => {
+    try {
+      if (id) {
+        var response = await get(id);
+        if (response) {
+          response.data.date = new Date(response.data.date);
+          setInitialValues(response.data);
+        }
+      }
+    } catch (error: any) {
+      console.error(error.message);
+    }
+  };
+
   const handleSave = async (formValue: ITrade) => {
     setMessage('');
     setLoading(true);
@@ -45,8 +63,8 @@ const TradeForm: React.FC<Props> = ({ history }) => {
     try {
       await save(formValue);
       setLoading(false);
+      history.push('/trades');
     } catch (error: any) {
-      console.info(JSON.stringify(error));
       const resMessage =
         (error.response &&
           error.response.data &&
@@ -67,6 +85,7 @@ const TradeForm: React.FC<Props> = ({ history }) => {
           initialValues={initialValues}
           validationSchema={validationSchema}
           onSubmit={handleSave}
+          enableReinitialize={true}
         >
           {({ values, setFieldValue }) => (
             <Form>
@@ -74,7 +93,7 @@ const TradeForm: React.FC<Props> = ({ history }) => {
                 <label htmlFor="date">Date</label>
                 <DatePicker
                   selected={values.date}
-                  dateFormat="d/M/yyyy"
+                  dateFormat="yyyy-MM-dd"
                   className="form-control"
                   name="date"
                   onChange={(date) => setFieldValue('date', date)}
@@ -115,7 +134,7 @@ const TradeForm: React.FC<Props> = ({ history }) => {
                 <CurrencyInput
                   name="price"
                   className="form-control"
-                  defaultValue={values.price}
+                  value={values.price}
                   decimalsLimit={8}
                   disableGroupSeparators={true}
                   onValueChange={(value) => setFieldValue('price', value)}
@@ -132,7 +151,7 @@ const TradeForm: React.FC<Props> = ({ history }) => {
                 <CurrencyInput
                   name="amount"
                   className="form-control"
-                  defaultValue={values.amount}
+                  value={values.amount}
                   decimalsLimit={8}
                   disableGroupSeparators={true}
                   onValueChange={(value) => setFieldValue('amount', value)}

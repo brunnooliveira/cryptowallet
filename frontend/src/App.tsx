@@ -142,6 +142,7 @@ const App: React.FC = () => {
           <Route path="/mod" component={BoardModerator} />
           <Route path="/admin" component={BoardAdmin} />
 
+          <Route path="/trade/:id" component={TradeForm} />
           <Route path="/trade" component={TradeForm} />
           <Route path="/trades" component={TradeList} />
         </Switch>

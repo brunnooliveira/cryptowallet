@@ -5,11 +5,13 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
 public class TradeGetResponse {
-    private LocalDate date;
+    private String id;
+    private Long date;
     private String ticker;
     private String operationType;
     private BigDecimal price;
