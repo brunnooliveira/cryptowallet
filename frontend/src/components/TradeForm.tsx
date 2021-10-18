@@ -29,8 +29,8 @@ const TradeForm: React.FC<Props> = ({ history, match }) => {
   });
 
   useEffect(() => {
-    loadTrade();
-  }, []);
+    loadTrade(match.params.id);
+  }, [match.params.id]);
 
   const validationSchema = Yup.object().shape({
     date: Yup.string().required('This field is required!'),
@@ -41,11 +41,10 @@ const TradeForm: React.FC<Props> = ({ history, match }) => {
     exchange: Yup.string().required('This field is required!'),
   });
 
-  const loadTrade = async () => {
+  const loadTrade = async (id: string) => {
     try {
-      if (match.params.id) {
-        var response = await get(match.params.id);
-        console.info(response);
+      if (id) {
+        var response = await get(id);
         if (response) {
           response.data.date = new Date(response.data.date);
           setInitialValues(response.data);
