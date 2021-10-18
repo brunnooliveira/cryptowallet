@@ -55,7 +55,6 @@ public class TradeController {
   }
 
   @GetMapping("/{id}")
-//  @RequestMapping(path = "/{id}")
   public ResponseEntity getTrade(@PathVariable("id") String id) {
     Optional<Trade> trade = tradeService.findById(id);
     return trade

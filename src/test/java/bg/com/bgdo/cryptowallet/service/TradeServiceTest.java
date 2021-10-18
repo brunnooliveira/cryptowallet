@@ -41,7 +41,7 @@ class TradeServiceTest {
 
   @Test
   void shouldReturnTradeListOnFindAllByExample() {
-    when(tradeRepository.findAll(any(Example.class)))
+    when(tradeRepository.findAll(any(Example.class), any(Sort.class)))
       .thenReturn(Arrays.asList(new Trade(), new Trade()));
 
     List<Trade> trades = tradeService.findAll(null);

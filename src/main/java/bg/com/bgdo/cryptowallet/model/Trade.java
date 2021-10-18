@@ -41,9 +41,9 @@ public class Trade {
     @NotNull
     @NotBlank
     private String exchange;
-    @CreatedDate
+    @NotNull
     private Instant createdAt;
-    @LastModifiedDate
+    @NotNull
     private Instant updatedAt;
 
 }
