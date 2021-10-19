@@ -38,14 +38,6 @@ const TradeList: React.FC<Props> = ({ history }) => {
     }
   };
 
-  // const handleList = async (formValue: ITrade) => {
-  //   setMessage('');
-  //   setLoading(true);
-
-  //   console.info(formValue);
-
-  // };
-
   return (
     <div className="col-md-12">
       {message && (
@@ -61,7 +53,6 @@ const TradeList: React.FC<Props> = ({ history }) => {
         <table className="table">
           <thead>
             <tr>
-              <th scope="col">#</th>
               <th scope="col">Date</th>
               <th scope="col">Ticker</th>
               <th scope="col">Op</th>
@@ -73,7 +64,6 @@ const TradeList: React.FC<Props> = ({ history }) => {
           <tbody>
             {trades?.map((trade) => (
               <tr key={trade.id}>
-                <th scope="row">1</th>
                 <td>{new Date(trade.date).toLocaleDateString()}</td>
                 <td>{trade.ticker}</td>
                 <td>{trade.operationType}</td>
