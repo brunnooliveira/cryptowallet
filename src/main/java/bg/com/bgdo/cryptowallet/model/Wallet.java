@@ -6,12 +6,16 @@ import lombok.ToString;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
+import java.util.Set;
 
 @ToString
 @AllArgsConstructor
 public class Wallet {
   private final List<Asset> assets;
   private final BigDecimal usdtBrlQuote;
+  private final List<Wallet> exchangeWallets;
+  private final String exchange;
+
 
   public List<Asset> getAssets() {
     return assets;
@@ -47,4 +51,11 @@ public class Wallet {
     return getActualValue().multiply(usdtBrlQuote);
   }
 
+  public List<Wallet> getExchangeWallets(){
+    return exchangeWallets;
+  }
+
+  public String getExchange() {
+    return exchange;
+  }
 }

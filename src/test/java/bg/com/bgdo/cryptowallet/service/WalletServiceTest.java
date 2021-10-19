@@ -38,7 +38,7 @@ class WalletServiceTest {
     void shouldReturnWalletAssetQuantityAndAveragePrice() {
         when(tradeService.findAll(null)).thenReturn(getTrades());
         when(brokerService.getAssetLastPrice(any())).thenReturn(BigDecimal.TEN);
-        final List<Asset> wallet = walletService.getAssets();
+        final List<Asset> wallet = walletService.getAssets(null);
 
         assertThat(wallet.size()).isEqualTo(1);
         assertThat(wallet.get(0).getAmount()).isEqualTo(BigDecimal.valueOf(2l));
