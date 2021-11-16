@@ -1,5 +1,6 @@
 package bg.com.bgdo.cryptowallet.infra.binance;
 
+import bg.com.bgdo.cryptowallet.model.OperationType;
 import bg.com.bgdo.cryptowallet.model.Trade;
 import bg.com.bgdo.cryptowallet.service.WalletService;
 import bg.com.bgdo.cryptowallet.shared.Constants;
@@ -61,6 +62,7 @@ public class JavaBinanceApiTest {
           .map(c -> {
             Trade trade1 = new Trade();
             trade1.setTicker("BTCUSD");
+            trade1.setOperationType(OperationType.BUY);
             trade1.setAmount(quota.divide(new BigDecimal(c.getClose()), Constants.PRICE_SCALE, RoundingMode.FLOOR));
             trade1.setPrice(new BigDecimal(c.getClose()));
             return trade1;
