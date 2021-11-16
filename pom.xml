@@ -12,7 +12,7 @@
 
     <groupId>bg.com.bgdo</groupId>
     <artifactId>cryptowallet</artifactId>
-    <version>0.0.6-beta</version>
+    <version>0.0.7-beta</version>
 
     <properties>
         <java.version>11</java.version>
