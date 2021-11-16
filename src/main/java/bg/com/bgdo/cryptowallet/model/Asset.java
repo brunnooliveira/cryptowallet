@@ -27,9 +27,10 @@ public class Asset {
     }
 
     public BigDecimal getProfitability(){
-        return getActualValue().multiply(BigDecimal.valueOf(100.0))
+        BigDecimal actualValue = getActualValue();
+        return actualValue.doubleValue() > 0L ? actualValue.multiply(BigDecimal.valueOf(100.0))
           .divide(getTotalPaid(), 2, RoundingMode.FLOOR)
-          .subtract(BigDecimal.valueOf(100.0));
+          .subtract(BigDecimal.valueOf(100.0)) : BigDecimal.ZERO;
     }
 
 }
