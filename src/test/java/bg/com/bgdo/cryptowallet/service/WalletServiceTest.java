@@ -1,6 +1,7 @@
 package bg.com.bgdo.cryptowallet.service;
 
 import bg.com.bgdo.cryptowallet.model.Asset;
+import bg.com.bgdo.cryptowallet.model.OperationType;
 import bg.com.bgdo.cryptowallet.model.Trade;
 import bg.com.bgdo.cryptowallet.shared.Constants;
 import org.junit.jupiter.api.BeforeAll;
@@ -41,7 +42,7 @@ class WalletServiceTest {
         final List<Asset> wallet = walletService.getAssets(null);
 
         assertThat(wallet.size()).isEqualTo(1);
-        assertThat(wallet.get(0).getAmount()).isEqualTo(BigDecimal.valueOf(2l));
+        assertThat(wallet.get(0).getAmount()).isEqualTo(BigDecimal.valueOf(1l));
         assertThat(wallet.get(0).getPrice()).isEqualTo(BigDecimal.valueOf(15l).setScale(Constants.PRICE_SCALE));
     }
 
@@ -54,20 +55,28 @@ class WalletServiceTest {
     @Test
     void shouldReturnWalletQuantityOfAsset() {
         final BigDecimal quantity = walletService.getQuantity(getTrades());
-        assertEquals(new BigDecimal(2.0), quantity);
+        assertEquals(new BigDecimal(1.0), quantity);
     }
 
     private List<Trade> getTrades(){
         Trade trade1 = new Trade();
         trade1.setTicker("BTCUSD");
+        trade1.setOperationType(OperationType.BUY);
         trade1.setAmount(new BigDecimal(1.0));
         trade1.setPrice(new BigDecimal(10.0));
 
         Trade trade2 = new Trade();
         trade2.setTicker("BTCUSD");
+        trade2.setOperationType(OperationType.BUY);
         trade2.setAmount(new BigDecimal(1.0));
         trade2.setPrice(new BigDecimal(20.0));
 
-        return Arrays.asList(trade1, trade2);
+        Trade trade3 = new Trade();
+        trade3.setTicker("BTCUSD");
+        trade3.setOperationType(OperationType.SELL);
+        trade3.setAmount(new BigDecimal(1.0));
+        trade3.setPrice(new BigDecimal(20.0));
+
+        return Arrays.asList(trade1, trade2, trade3);
     }
 }

@@ -1,6 +1,7 @@
 package bg.com.bgdo.cryptowallet.service;
 
 import bg.com.bgdo.cryptowallet.model.Asset;
+import bg.com.bgdo.cryptowallet.model.OperationType;
 import bg.com.bgdo.cryptowallet.model.Trade;
 import bg.com.bgdo.cryptowallet.model.Wallet;
 import bg.com.bgdo.cryptowallet.shared.Constants;
@@ -70,14 +71,20 @@ public class WalletService {
     BigDecimal quantityTotal = BigDecimal.ZERO;
 
     for (Trade trade : trades) {
-      valorTotal = valorTotal.add((trade.getPrice().multiply(trade.getAmount())));
-      quantityTotal = quantityTotal.add(trade.getAmount());
+      if(OperationType.BUY.equals(trade.getOperationType())) {
+        valorTotal = valorTotal.add((trade.getPrice().multiply(trade.getAmount())));
+        quantityTotal = quantityTotal.add(trade.getAmount());
+      }
     }
     return valorTotal.divide(quantityTotal, Constants.PRICE_SCALE, RoundingMode.FLOOR);
   }
 
   public BigDecimal getQuantity(List<Trade> trades) {
-    return trades.stream().map(Trade::getAmount).reduce(BigDecimal.ZERO, BigDecimal::add);
+    return trades.stream().
+      map(t ->
+        OperationType.BUY.equals(t.getOperationType()) ? t.getAmount() : t.getAmount().multiply(BigDecimal.valueOf(-1l))
+      )
+      .reduce(BigDecimal.ZERO, BigDecimal::add);
   }
 
 }
